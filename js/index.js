@@ -28,28 +28,9 @@ loader.load( '../assets/logo.fbx', function ( object ) {
 
 // Text
 const text_loader = new THREE.FontLoader();
-text_loader.load('../assets/KenPixel_Regular.json', (font) => {
-  const geometry = new THREE.TextGeometry( 'Hello three.js!', {
-		font: font,
-		size: .3,
-		height: 0.001,
-		curveSegments: 5,
-		bevelEnabled: true,
-		bevelThickness: .04,
-		bevelSize: .01,
-		bevelOffset: 0,
-		bevelSegments: 1
-	} );
-  const mesh = new THREE.Mesh(geometry, 
-    new THREE.MeshStandardMaterial({
-      color:'gray',
-      metalness: 0.0,
-      roughness: 0.5
-    }))
-  mesh.position.set(0, 7, 0)
-  mesh.rotation.set(0, 45, 0)
-  scene.add(mesh)
-})
+let font
+
+
 
 // Statistic plane
 var texture, material, plane;
@@ -79,7 +60,7 @@ const controls = new THREE.OrbitControls(camera, renderer.domElement);
 
 
 camera.position.x = 10
-camera.position.y = 10
+camera.position.y = 20
 camera.position.z = 10
 
 controls.update();
@@ -95,27 +76,119 @@ var pointLightTwo = new THREE.PointLight(0xffffff, 1);
 pointLightTwo.position.set(-25, -20, -25);
 scene.add(pointLightTwo);
 
+// Stats
+const maxSize = 3
+const maxNumberOfOption = 10
+var numberOfOption = 5
+
+const cube0 = new THREE.BoxGeometry( 1, maxSize, 1);
+const cube1 = new THREE.BoxGeometry( 1, maxSize, 1);
+const cube2 = new THREE.BoxGeometry( 1, maxSize, 1);
+const cube3 = new THREE.BoxGeometry( 1, maxSize, 1);
+const cube4 = new THREE.BoxGeometry( 1, maxSize, 1);
+const cube5 = new THREE.BoxGeometry( 1, maxSize, 1);
+const cube6 = new THREE.BoxGeometry( 1, maxSize, 1);
+const cube7 = new THREE.BoxGeometry( 1, maxSize, 1);
+const cube8 = new THREE.BoxGeometry( 1, maxSize, 1);
+const cube9 = new THREE.BoxGeometry( 1, maxSize, 1);
+
+
+const text_mesh0 = new THREE.Mesh()
+const text_mesh1 = new THREE.Mesh()
+const text_mesh2 = new THREE.Mesh()
+const text_mesh3 = new THREE.Mesh()
+const text_mesh4 = new THREE.Mesh()
+const text_mesh5 = new THREE.Mesh()
+const text_mesh6 = new THREE.Mesh()
+const text_mesh7 = new THREE.Mesh()
+const text_mesh8 = new THREE.Mesh()
+const text_mesh9 = new THREE.Mesh()
+
+
+var cube = [cube0, cube1, cube2, cube3, cube4, cube5, cube6, cube7, cube8, cube9]
+var text_mesh = [text_mesh0, text_mesh1, text_mesh2, text_mesh3, text_mesh4, text_mesh5, text_mesh6, text_mesh7, text_mesh8, text_mesh9]
+var arrayStat = [.3, .4, .2, .8, 1, .8, .2, .6, .2, .1]
+var arrayString = [".3", ".4", ".2", ".8", "1", ".8", ".2", ".6", ".2", ".1"]
+
+create_stats()
+
+function create_stats() {
+  for(let i = 0; i < maxNumberOfOption; i++) {
+    var geometry = new THREE.BoxGeometry( 1, maxSize, 1);
+    var material = new THREE.MeshPhongMaterial({color: 0x31326f, transparent: true, opacity: .95})
+    cube[i] = new THREE.Mesh ( geometry, material );
+    scene.add( cube[i] )
+    cube[i].scale.set(0, 0, 0)
+  }
+}
+
+function set_stats(number, distance, array_stat, array_string) {
+  if (number > maxNumberOfOption) {
+    number = maxNumberOfOption
+  }
+
+  let degreePerPoint = 360/number;
+  for(let i = 0; i < maxNumberOfOption; i++) {
+    if (text_mesh[i] != null) {
+      text_mesh[i].position.set(800000, 8000000, 8000000)
+    }
+      
+    if (i < number) {
+      cube[i].scale.set(1, maxSize * array_stat[i], 1)
+      let xPos = distance * Math.sin(degrees_to_radians(degreePerPoint * i))
+      let zPos = distance * Math.cos(degrees_to_radians(degreePerPoint * i))
+      let yPos = 3.201 + (maxSize * array_stat[i] * 1.5)
+      let textYPos = 3.301 + (maxSize * array_stat[i] * 3)
+
+      cube[i].position.x = xPos;
+      cube[i].position.y = yPos;
+      cube[i].position.z = zPos;
+
+      const geometry = new THREE.TextGeometry( array_string[i], {
+        font: font,
+        size: .3,
+        height: 0.001,
+        curveSegments: 5,
+        bevelEnabled: true,
+        bevelThickness: .04,
+        bevelSize: .01,
+        bevelOffset: 0,
+        bevelSegments: 1
+      } );
+
+      text_mesh[i] = new THREE.Mesh(geometry, 
+        new THREE.MeshStandardMaterial({
+          color:'gray',
+          metalness: 0.0,
+          roughness: 0.5
+        }))
+      text_mesh[i].position.set(xPos, textYPos, zPos)
+      text_mesh[i].rotation.set(0, 45, 0)
+      
+      scene.add(text_mesh[i])
+
+    } else {
+      cube[i].scale.set(0, 0, 0)
+    }
+  }
+}
+
 // Cube animation
 function animate() {
     requestAnimationFrame( animate )
-
+    
     controls.update();
     renderer.render( scene, camera );
 }
 animate()
 
-// Stats
-const maxSize = 3
 
-function place_stats(number, distance) {
-  
+text_loader.load('../assets/KenPixel_Regular.json', (myfont) => {
+  font = myfont;
+  init()
+})
 
-  let degreePerPoint = 360/number;
-  for(let i = 0; i < number; i++) {
-    let xPos = distance * Math.sin(degrees_to_radians(degreePerPoint * i))
-    let zPos = distance * Math.cos(degrees_to_radians(degreePerPoint * i))
-    let yPos = 3.2 + maxSize/2 + .001
-
+<<<<<<< Updated upstream
     var geometry = new THREE.BoxGeometry( 1, maxSize, 1);
     var material = new THREE.MeshPhongMaterial({color: 0x31326f, transparent: true, opacity: .95})
     const cube = new THREE.Mesh ( geometry, material );
@@ -124,8 +197,12 @@ function place_stats(number, distance) {
     cube.position.y = yPos;
     cube.position.z = zPos;
   }
+=======
+function init() {
+  set_stats(2, 2.2, arrayStat, arrayString)
+  set_stats(10, 2.2, arrayStat, arrayString)
+>>>>>>> Stashed changes
 }
-place_stats(5, 2.2)
 
 function degrees_to_radians(degrees)
 {
