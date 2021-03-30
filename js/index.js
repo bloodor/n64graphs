@@ -81,6 +81,41 @@ loader.load( '../assets/logo.fbx', function ( object ) {
 const text_loader = new THREE.FontLoader();
 let font
 
+// Event
+const raycaster = new THREE.Raycaster();
+const mouse = new THREE.Vector2();
+window.addEventListener('click', onMouseClick, false)
+
+// Create Clicking panel
+var buttonTexture, buttonMaterial, button, button1, button2, button3;
+
+buttonTexture = new THREE.TextureLoader().load('../assets/tile_web.png' );
+
+buttonMaterial = new THREE.MeshStandardMaterial({
+  color: 'gray'
+})
+
+button1 = new THREE.Mesh(new THREE.PlaneGeometry(15, 7), buttonMaterial);
+button1.material.side = THREE.DoubleSide;
+button2 = new THREE.Mesh(new THREE.PlaneGeometry(15, 7), buttonMaterial);
+button2.material.side = THREE.DoubleSide;
+button3 = new THREE.Mesh(new THREE.PlaneGeometry(15, 7), buttonMaterial);
+button3.material.side = THREE.DoubleSide;
+
+scene.add( button1 );
+
+button1.rotation.y = degrees_to_radians(90)
+button1.position.set(-20, 5, 0)
+
+scene.add( button2 );
+
+button2.rotation.y = degrees_to_radians(45)
+button2.position.set(-14, 5, -14)
+
+scene.add( button3 );
+
+button3.position.set(0, 5, -20)
+
 
 
 // Statistic plane
@@ -248,4 +283,21 @@ function degrees_to_radians(degrees)
 {
   var pi = Math.PI;
   return degrees * (pi/180);
+}
+
+function onMouseClick(event) {
+console.log("logo")
+
+  mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+	mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+
+  raycaster.setFromCamera(mouse, camera);
+  const intersects = raycaster.intersectObjects(scene.children)
+
+  for (let i = 0; i < intersects.length; i++) {
+    if (intersects.object == button1) {
+      
+    }
+    intersects[i].object.material.color.set(0xff000)
+  }
 }
