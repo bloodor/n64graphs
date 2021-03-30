@@ -239,7 +239,6 @@ text_loader.load('../assets/KenPixel_Regular.json', (myfont) => {
   init()
 })
 
-
 function init() {
   set_stats(2, 2.2, arrayStat, arrayString)
   set_stats(10, 2.2, arrayStat, arrayString)
