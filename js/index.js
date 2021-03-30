@@ -9,6 +9,9 @@ for (var y = 0; y < 7; y++) {
       byYear[y] += 1;
   }
 }
+for (var i = 0; i < 7; i++) {
+  byYear[i] = byYear[i] / 320;
+}
 console.log(byYear)
 
 const genre = [0,0,0,0,0,0,0,0,0,0];
@@ -34,6 +37,10 @@ for (var i = 0; i < 319; i++){
   else
     genre[9] += 1;
   }
+  for (var i = 0; i < 10; i++) {
+    genre[i] = genre[i] / 320;
+    }
+  const genreName = ["Platform", "Racing", "Shooter", "Action", "Fighting", "Strategy", "Simulation", "Sports", "Puzzle", "Autres"]
 console.log(genre)
 
 const editor = [0,0,0,0,0,0,0,0,0,0];
@@ -60,6 +67,10 @@ for (var i = 0; i < 319; i++)
   else
     editor[9] +=1;
 }
+for (var i = 0; i < 10; i++) {
+  editor[i] = editor[i] / 320;
+}
+const editorName = ["Acclaim Entertainment", "Activision", "Electronic Arts", "GT Interactive", "Kemco", "Konami Digital Entertainment", "Nintendo", "THQ", "Ubisoft","Autres"];
 console.log(editor)
 
 // Create scene, camera, renderer
@@ -240,8 +251,9 @@ text_loader.load('../assets/KenPixel_Regular.json', (myfont) => {
 })
 
 function init() {
-  set_stats(2, 2.2, arrayStat, arrayString)
-  set_stats(10, 2.2, arrayStat, arrayString)
+  set_stats(10, 2.2, editor, editorName)
+//  set_stats(10, 2.2, genre, genreName)
+//  set_stats(7, 2.2, byYear, ["1996", "1997", "1998", "1999", "2000", "2001", "2002"])
 }
 
 function degrees_to_radians(degrees)
