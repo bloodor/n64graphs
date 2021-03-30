@@ -1,5 +1,15 @@
 import { FBXLoader } from '/loaders/FBXLoader.js'
 
+//import games data
+var count = 0;
+var Games = fetch('../assets/N64Json.json')
+  .then(response => response.json())
+
+  for (var i = 0; Games["Games"][i]["Année"] == 1999; i++){
+    count += 1;
+  }
+  console.log(count);
+
 // Create scene, camera, renderer
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
@@ -79,7 +89,7 @@ function place_stats(number, distance) {
     let yPos = 3.2 + maxSize/2
 
     var geometry = new THREE.BoxGeometry( 1, maxSize, 1);
-    var material = new THREE.MeshPhongMaterial({color: 0x31326f, transparent: true, opacity: .95, metalness: .5, roughness: .5})
+    var material = new THREE.MeshPhongMaterial({color: 0x31326f, transparent: true, opacity: .95})
     const cube = new THREE.Mesh ( geometry, material );
     scene.add( cube )
     cube.position.x = xPos;
