@@ -1,4 +1,5 @@
 import { FBXLoader } from '/loaders/FBXLoader.js'
+import '/loaders/TTFLoader.js'
 
 // Create scene, camera, renderer
 const scene = new THREE.Scene();
@@ -14,6 +15,31 @@ loader.load( '../assets/logo.fbx', function ( object ) {
     scene.add( ncube );
     ncube.scale.set(.01, .01, .01)
 } );
+
+// Text
+const text_loader = new THREE.FontLoader();
+text_loader.load('../assets/KenPixel_Regular.json', (font) => {
+  const geometry = new THREE.TextGeometry( 'Hello three.js!', {
+		font: font,
+		size: .3,
+		height: 0.001,
+		curveSegments: 5,
+		bevelEnabled: true,
+		bevelThickness: .04,
+		bevelSize: .01,
+		bevelOffset: 0,
+		bevelSegments: 1
+	} );
+  const mesh = new THREE.Mesh(geometry, 
+    new THREE.MeshStandardMaterial({
+      color:'gray',
+      metalness: 0.0,
+      roughness: 0.5
+    }))
+  mesh.position.set(0, 7, 0)
+  mesh.rotation.set(0, 45, 0)
+  scene.add(mesh)
+})
 
 // Statistic plane
 var texture, material, plane;
@@ -72,11 +98,13 @@ animate()
 const maxSize = 3
 
 function place_stats(number, distance) {
+  
+
   let degreePerPoint = 360/number;
   for(let i = 0; i < number; i++) {
     let xPos = distance * Math.sin(degrees_to_radians(degreePerPoint * i))
     let zPos = distance * Math.cos(degrees_to_radians(degreePerPoint * i))
-    let yPos = 3.2 + maxSize/2
+    let yPos = 3.2 + maxSize/2 + .001
 
     var geometry = new THREE.BoxGeometry( 1, maxSize, 1);
     var material = new THREE.MeshPhongMaterial({color: 0x31326f, transparent: true, opacity: .95, metalness: .5, roughness: .5})
@@ -87,7 +115,7 @@ function place_stats(number, distance) {
     cube.position.z = zPos;
   }
 }
-place_stats(10, 2.2)
+place_stats(5, 2.2)
 
 function degrees_to_radians(degrees)
 {
