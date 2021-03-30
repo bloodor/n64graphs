@@ -155,6 +155,8 @@ document.body.appendChild( renderer.domElement )
 
 const controls = new THREE.OrbitControls(camera, renderer.domElement);
 
+controls.target.set( 0, 5, 0 );
+
 
 camera.position.x = 10
 camera.position.y = 20
@@ -273,7 +275,14 @@ function set_stats(number, distance, array_stat, array_string) {
 // Cube animation
 function animate() {
     requestAnimationFrame( animate )
-    
+
+
+    for (let j = 0; j < 10; j++) {
+      text_mesh[j].rotation.y = camera.rotation.y
+      text_mesh[j].rotation.x = camera.rotation.x
+      text_mesh[j].rotation.z = camera.rotation.z
+    }
+
     controls.update();
     renderer.render( scene, camera );
 }
