@@ -174,7 +174,7 @@ pointLightTwo.position.set(-25, -20, -25);
 scene.add(pointLightTwo);
 
 // Stats
-const maxSize = 3
+const maxSize = 6
 const maxNumberOfOption = 10
 var numberOfOption = 5
 
@@ -234,8 +234,8 @@ function set_stats(number, distance, array_stat, array_string) {
       cube[i].scale.set(1, maxSize * array_stat[i], 1)
       let xPos = distance * Math.sin(degrees_to_radians(degreePerPoint * i))
       let zPos = distance * Math.cos(degrees_to_radians(degreePerPoint * i))
-      let yPos = 3.201 + (maxSize * array_stat[i] * 1.5)
-      let textYPos = 3.301 + (maxSize * array_stat[i] * 3)
+      let yPos = 3.201 + (maxSize * array_stat[i] * maxSize/2)
+      let textYPos = 4 + (maxSize * array_stat[i] * maxSize)
 
       cube[i].position.x = xPos;
       cube[i].position.y = yPos;
@@ -298,7 +298,6 @@ function degrees_to_radians(degrees)
 }
 
 function onMouseClick(event) {
-console.log("logo")
 
   mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
 	mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
@@ -307,9 +306,14 @@ console.log("logo")
   const intersects = raycaster.intersectObjects(scene.children)
 
   for (let i = 0; i < intersects.length; i++) {
-    if (intersects.object == button1) {
-      
+    console.log(intersects[i].object)
+    if (intersects[i].object == button1) {
+      set_stats(10, 2.2, editor, editorName)
+      console.log("PUT")
+    } else if (intersects[i].object == button2) {
+      set_stats(10, 2.2, genre, genreName)
+    } else if (intersects[i].object == button3) {
+      set_stats(7, 2.2, byYear, ["1996", "1997", "1998", "1999", "2000", "2001", "2002"])
     }
-    intersects[i].object.material.color.set(0xff000)
   }
 }
