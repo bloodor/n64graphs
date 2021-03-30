@@ -40,7 +40,7 @@ for (var i = 0; i < 319; i++){
   for (var i = 0; i < 10; i++) {
     genre[i] = genre[i] / 320;
     }
-  const genreName = ["Platform", "Racing", "Shooter", "Action", "Fighting", "Strategy", "Simulation", "Sports", "Puzzle", "Autres"]
+  const genreName = ["Platform\n30", "Racing\n60", "Shooter\n24", "Action\n39", "Fighting\n34", "Strategy\n9", "Simulation\n10", "Sports\n80", "Puzzle\n2", "Autres\n32"]
 console.log(genre)
 
 const editor = [0,0,0,0,0,0,0,0,0,0];
@@ -70,7 +70,7 @@ for (var i = 0; i < 319; i++)
 for (var i = 0; i < 10; i++) {
   editor[i] = editor[i] / 320;
 }
-const editorName = ["Acclaim Entertainment", "Activision", "Electronic Arts", "GT Interactive", "Kemco", "Konami Digital Entertainment", "Nintendo", "THQ", "Ubisoft","Autres"];
+const editorName = ["Acclaim Entertainment\n31", "Activision\n13", "Electronic Arts\n23", "GT Interactive\n18", "Kemco\n7", "Konami Digital Entertainment\n25", "Nintendo\n60", "THQ\n18", "Ubisoft\n12","Autres\n113"];
 console.log(editor)
 
 // Create scene, camera, renderer
@@ -313,7 +313,7 @@ function onMouseClick(event) {
     } else if (intersects[i].object == button2) {
       set_stats(10, 2.2, genre, genreName)
     } else if (intersects[i].object == button3) {
-      set_stats(7, 2.2, byYear, ["1996", "1997", "1998", "1999", "2000", "2001", "2002"])
+      set_stats(7, 2.2, byYear, ["1996\n18", "1997\n50", "1998\n77", "1999\n103", "2000\n82", "2001\n14", "2002\n1"])
     }
   }
 }
