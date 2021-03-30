@@ -98,19 +98,28 @@ const mouse = new THREE.Vector2();
 window.addEventListener('click', onMouseClick, false)
 
 // Create Clicking panel
-var buttonTexture, buttonMaterial, button, button1, button2, button3;
+var buttonTexture1, buttonTexture2, buttonTexture3, buttonMaterial1, buttonMaterial2, buttonMaterial3, button1, button2, button3;
 
-buttonTexture = new THREE.TextureLoader().load('../assets/tile_web.png' );
+buttonTexture1 = new THREE.TextureLoader().load('../assets/editeur.png' );
+buttonTexture2 = new THREE.TextureLoader().load('../assets/Annees.png' );
+buttonTexture3 = new THREE.TextureLoader().load('../assets/Genres.png' );
 
-buttonMaterial = new THREE.MeshStandardMaterial({
-  color: 'gray'
+buttonMaterial1 = new THREE.MeshStandardMaterial({
+  map: buttonTexture1,
+  color: 'green'
+})
+buttonMaterial2 = new THREE.MeshStandardMaterial({
+  map: buttonTexture2
+})
+buttonMaterial3 = new THREE.MeshStandardMaterial({
+  map: buttonTexture3
 })
 
-button1 = new THREE.Mesh(new THREE.PlaneGeometry(15, 7), buttonMaterial);
+button1 = new THREE.Mesh(new THREE.PlaneGeometry(15, 7), buttonMaterial1);
 button1.material.side = THREE.DoubleSide;
-button2 = new THREE.Mesh(new THREE.PlaneGeometry(15, 7), buttonMaterial);
+button2 = new THREE.Mesh(new THREE.PlaneGeometry(15, 7), buttonMaterial2);
 button2.material.side = THREE.DoubleSide;
-button3 = new THREE.Mesh(new THREE.PlaneGeometry(15, 7), buttonMaterial);
+button3 = new THREE.Mesh(new THREE.PlaneGeometry(15, 7), buttonMaterial3);
 button3.material.side = THREE.DoubleSide;
 
 scene.add( button1 );
@@ -136,7 +145,8 @@ texture = new THREE.TextureLoader().load('../assets/tile_web.png' );
 
 material = new THREE.MeshPhongMaterial({
   map: texture,
-  transparent: true
+  transparent: true,
+  opacity: .5
 })
 
 plane = new THREE.Mesh(new THREE.PlaneGeometry(7, 7), material);
@@ -156,6 +166,8 @@ document.body.appendChild( renderer.domElement )
 const controls = new THREE.OrbitControls(camera, renderer.domElement);
 
 controls.target.set( 0, 5, 0 );
+controls.maxDistance = 20;
+controls.panSpeed = 0;
 
 
 camera.position.x = 10
@@ -317,11 +329,20 @@ function onMouseClick(event) {
   for (let i = 0; i < intersects.length; i++) {
     console.log(intersects[i].object)
     if (intersects[i].object == button1) {
+      button1.material.color.set('green')
+      button2.material.color.set('white')
+      button3.material.color.set('white')
       set_stats(10, 2.2, editor, editorName)
       console.log("PUT")
     } else if (intersects[i].object == button2) {
+      button1.material.color.set('white')
+      button2.material.color.set('green')
+      button3.material.color.set('white')
       set_stats(10, 2.2, genre, genreName)
     } else if (intersects[i].object == button3) {
+      button1.material.color.set('white')
+      button2.material.color.set('white')
+      button3.material.color.set('green')
       set_stats(7, 2.2, byYear, ["1996\n18", "1997\n50", "1998\n77", "1999\n103", "2000\n82", "2001\n14", "2002\n1"])
     }
   }
