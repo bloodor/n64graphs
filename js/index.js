@@ -2,14 +2,65 @@ import { FBXLoader } from '/loaders/FBXLoader.js'
 import '/loaders/TTFLoader.js'
 
 //import games data
-var count = 0;
-var Games = fetch('../assets/N64Json.json')
-  .then(response => response.json())
-
-  for (var i = 0; Games["Games"][i]["Année"] == 1999; i++){
-    count += 1;
+const byYear = [0,0,0,0,0,0,0];
+for (var y = 0; y < 7; y++) {
+  for (var i = 0; i < 319; i++){
+    if (data[i]["Année"] == 1996+y)
+      byYear[y] += 1;
   }
-  console.log(count);
+}
+console.log(byYear)
+
+const genre = [0,0,0,0,0,0,0,0,0,0];
+for (var i = 0; i < 319; i++){
+  if (data[i]["Type"] == "Platform")
+    genre[0] += 1;
+  else if (data[i]["Type"] == "Racing")
+    genre[1] += 1;
+  else if (data[i]["Type"] == "Shooter")
+    genre[2] += 1;
+  else if (data[i]["Type"] == "Action")
+    genre[3] += 1;
+  else if (data[i]["Type"] == "Fighting")
+    genre[4] += 1;
+  else if (data[i]["Type"] == "Strategy")
+    genre[5] += 1;
+  else if (data[i]["Type"] == "Simulation")
+    genre[6] += 1;
+  else if (data[i]["Type"] == "Sports")
+    genre[7] += 1;
+  else if (data[i]["Type"] == "Puzzle")
+    genre[8] += 1;
+  else
+    genre[9] += 1;
+  }
+console.log(genre)
+
+const editor = [0,0,0,0,0,0,0,0,0,0];
+for (var i = 0; i < 319; i++)
+{
+  if (data[i]["Editeur"] == "Acclaim Entertainment")
+    editor[0] += 1;
+  else if (data[i]["Editeur"] == "Activision")
+    editor[1] += 1;
+  else if (data[i]["Editeur"] == "Electronic Arts")
+    editor[2] += 1;
+  else if (data[i]["Editeur"] == "GT Interactive")
+    editor[3] += 1;
+  else if (data[i]["Editeur"] == "Kemco")
+    editor[4] += 1;
+  else if (data[i]["Editeur"] == "Konami Digital Entertainment")
+    editor[5] += 1;
+  else if (data[i]["Editeur"] == "Nintendo")
+    editor[6] += 1;
+  else if (data[i]["Editeur"] == "THQ")
+    editor[7] += 1;
+  else if (data[i]["Editeur"] == "Ubisoft")
+    editor[8] += 1;
+  else
+    editor[9] +=1;
+}
+console.log(editor)
 
 // Create scene, camera, renderer
 const scene = new THREE.Scene();
