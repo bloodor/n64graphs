@@ -239,20 +239,10 @@ text_loader.load('../assets/KenPixel_Regular.json', (myfont) => {
   init()
 })
 
-<<<<<<< Updated upstream
-    var geometry = new THREE.BoxGeometry( 1, maxSize, 1);
-    var material = new THREE.MeshPhongMaterial({color: 0x31326f, transparent: true, opacity: .95})
-    const cube = new THREE.Mesh ( geometry, material );
-    scene.add( cube )
-    cube.position.x = xPos;
-    cube.position.y = yPos;
-    cube.position.z = zPos;
-  }
-=======
+
 function init() {
   set_stats(2, 2.2, arrayStat, arrayString)
   set_stats(10, 2.2, arrayStat, arrayString)
->>>>>>> Stashed changes
 }
 
 function degrees_to_radians(degrees)
